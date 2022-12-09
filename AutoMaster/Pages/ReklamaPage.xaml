@@ -1,0 +1,29 @@
+﻿<Page x:Class="AutoMaster.Pages.ReklamaPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:AutoMaster.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="ReklamaPage">
+    
+    <Grid>
+        <StackPanel>
+            <TextBlock Name="tbReklama" FontSize="40" FontWeight="Bold" HorizontalAlignment="Center">Это наша лучшая мастерская!</TextBlock>
+            <StackPanel Orientation="Vertical">
+                <StackPanel Orientation="Vertical">
+                    <Image Source="\Resources\masterauto3.jpg" Height="162" Margin="0, 30, 0, 0"/>
+                    <TextBlock Name="tbOpis" FontSize="20" HorizontalAlignment="Center" Margin="0, 15, 0, 0">Мы работаем в любое время. Закажите, пожалуйста!</TextBlock>
+                    <TextBlock Name="tbRepair" FontSize="20" HorizontalAlignment="Center" Margin="0, 15, 0, 0">Что входит в ремонте: замены колеса, масла, стекла, мотора, лампы, окраску и т.д.</TextBlock>
+                    <TextBlock Name="tbZakaz" FontSize="30" HorizontalAlignment="Center" Margin="0, 20, 0, 0">Мы готовы принять Ваш заказ!</TextBlock>
+                    
+                </StackPanel>
+
+                <StackPanel Orientation="Vertical">
+                    <Button Name="btnRekl" Click="btnClick_Rekl" Margin="0, 20, 0, 0" Width="281" Style="{ StaticResource btnRekl }">Бегу подать заявку!</Button>
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Page>

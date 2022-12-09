@@ -1,0 +1,575 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Хранилище MalevModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="MasterPhoto">
+          <Key>
+            <PropertyRef Name="idPhoto" />
+          </Key>
+          <Property Name="idPhoto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idMaster" Type="int" Nullable="false" />
+          <Property Name="PhotoBinary" Type="varbinary(max)" />
+          <Property Name="PhotoPath" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="TableApplication">
+          <Key>
+            <PropertyRef Name="idApplication" />
+          </Key>
+          <Property Name="idApplication" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Surname" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Fatherland" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="idBrand" Type="int" Nullable="false" />
+          <Property Name="idMaster" Type="int" Nullable="false" />
+          <Property Name="idRepair" Type="int" Nullable="false" />
+          <Property Name="Photo" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="TableBrand">
+          <Key>
+            <PropertyRef Name="idBrand" />
+          </Key>
+          <Property Name="idBrand" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Brand" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TableGender">
+          <Key>
+            <PropertyRef Name="idGender" />
+          </Key>
+          <Property Name="idGender" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Gender" Type="nchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TableMaster">
+          <Key>
+            <PropertyRef Name="idMaster" />
+          </Key>
+          <Property Name="idMaster" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Surname" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Fatherland" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Birthday" Type="date" Nullable="false" />
+          <Property Name="Login" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="Password" Type="int" Nullable="false" />
+          <Property Name="idGender" Type="int" Nullable="false" />
+          <Property Name="idRole" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TableRepair">
+          <Key>
+            <PropertyRef Name="idRepair" />
+          </Key>
+          <Property Name="idRepair" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Repair" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Price" Type="money" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TableRepairApp">
+          <Key>
+            <PropertyRef Name="idRepairApp" />
+          </Key>
+          <Property Name="idRepairApp" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idRepair" Type="int" Nullable="false" />
+          <Property Name="idApplication" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TableRole">
+          <Key>
+            <PropertyRef Name="idRole" />
+          </Key>
+          <Property Name="idRole" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Role" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_MasterPhoto_TableMaster">
+          <End Role="TableMaster" Type="Self.TableMaster" Multiplicity="1" />
+          <End Role="MasterPhoto" Type="Self.MasterPhoto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TableMaster">
+              <PropertyRef Name="idMaster" />
+            </Principal>
+            <Dependent Role="MasterPhoto">
+              <PropertyRef Name="idMaster" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TableApplication_TableBrand">
+          <End Role="TableBrand" Type="Self.TableBrand" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TableApplication" Type="Self.TableApplication" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TableBrand">
+              <PropertyRef Name="idBrand" />
+            </Principal>
+            <Dependent Role="TableApplication">
+              <PropertyRef Name="idBrand" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TableApplication_TableMaster">
+          <End Role="TableMaster" Type="Self.TableMaster" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TableApplication" Type="Self.TableApplication" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TableMaster">
+              <PropertyRef Name="idMaster" />
+            </Principal>
+            <Dependent Role="TableApplication">
+              <PropertyRef Name="idMaster" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TableMaster_TableGender">
+          <End Role="TableGender" Type="Self.TableGender" Multiplicity="1" />
+          <End Role="TableMaster" Type="Self.TableMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TableGender">
+              <PropertyRef Name="idGender" />
+            </Principal>
+            <Dependent Role="TableMaster">
+              <PropertyRef Name="idGender" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TableMaster_TableRole">
+          <End Role="TableRole" Type="Self.TableRole" Multiplicity="1" />
+          <End Role="TableMaster" Type="Self.TableMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TableRole">
+              <PropertyRef Name="idRole" />
+            </Principal>
+            <Dependent Role="TableMaster">
+              <PropertyRef Name="idRole" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TableRepairApp_TableApplication">
+          <End Role="TableApplication" Type="Self.TableApplication" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TableRepairApp" Type="Self.TableRepairApp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TableApplication">
+              <PropertyRef Name="idApplication" />
+            </Principal>
+            <Dependent Role="TableRepairApp">
+              <PropertyRef Name="idApplication" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TableRepairApp_TableRepair">
+          <End Role="TableRepair" Type="Self.TableRepair" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TableRepairApp" Type="Self.TableRepairApp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TableRepair">
+              <PropertyRef Name="idRepair" />
+            </Principal>
+            <Dependent Role="TableRepairApp">
+              <PropertyRef Name="idRepair" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище MalevModelContainer">
+          <EntitySet Name="MasterPhoto" EntityType="Self.MasterPhoto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TableApplication" EntityType="Self.TableApplication" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TableBrand" EntityType="Self.TableBrand" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TableGender" EntityType="Self.TableGender" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TableMaster" EntityType="Self.TableMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TableRepair" EntityType="Self.TableRepair" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TableRepairApp" EntityType="Self.TableRepairApp" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TableRole" EntityType="Self.TableRole" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_MasterPhoto_TableMaster" Association="Self.FK_MasterPhoto_TableMaster">
+            <End Role="TableMaster" EntitySet="TableMaster" />
+            <End Role="MasterPhoto" EntitySet="MasterPhoto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TableApplication_TableBrand" Association="Self.FK_TableApplication_TableBrand">
+            <End Role="TableBrand" EntitySet="TableBrand" />
+            <End Role="TableApplication" EntitySet="TableApplication" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TableApplication_TableMaster" Association="Self.FK_TableApplication_TableMaster">
+            <End Role="TableMaster" EntitySet="TableMaster" />
+            <End Role="TableApplication" EntitySet="TableApplication" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TableMaster_TableGender" Association="Self.FK_TableMaster_TableGender">
+            <End Role="TableGender" EntitySet="TableGender" />
+            <End Role="TableMaster" EntitySet="TableMaster" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TableMaster_TableRole" Association="Self.FK_TableMaster_TableRole">
+            <End Role="TableRole" EntitySet="TableRole" />
+            <End Role="TableMaster" EntitySet="TableMaster" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TableRepairApp_TableApplication" Association="Self.FK_TableRepairApp_TableApplication">
+            <End Role="TableApplication" EntitySet="TableApplication" />
+            <End Role="TableRepairApp" EntitySet="TableRepairApp" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TableRepairApp_TableRepair" Association="Self.FK_TableRepairApp_TableRepair">
+            <End Role="TableRepair" EntitySet="TableRepair" />
+            <End Role="TableRepairApp" EntitySet="TableRepairApp" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MalevModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="AntonEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="MasterPhoto" EntityType="MalevModel.MasterPhoto" />
+          <EntitySet Name="sysdiagrams" EntityType="MalevModel.sysdiagrams" />
+          <EntitySet Name="TableApplication" EntityType="MalevModel.TableApplication" />
+          <EntitySet Name="TableBrand" EntityType="MalevModel.TableBrand" />
+          <EntitySet Name="TableGender" EntityType="MalevModel.TableGender" />
+          <EntitySet Name="TableMaster" EntityType="MalevModel.TableMaster" />
+          <EntitySet Name="TableRepair" EntityType="MalevModel.TableRepair" />
+          <EntitySet Name="TableRepairApp" EntityType="MalevModel.TableRepairApp" />
+          <EntitySet Name="TableRole" EntityType="MalevModel.TableRole" />
+          <AssociationSet Name="FK_MasterPhoto_TableMaster" Association="MalevModel.FK_MasterPhoto_TableMaster">
+            <End Role="TableMaster" EntitySet="TableMaster" />
+            <End Role="MasterPhoto" EntitySet="MasterPhoto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TableApplication_TableBrand" Association="MalevModel.FK_TableApplication_TableBrand">
+            <End Role="TableBrand" EntitySet="TableBrand" />
+            <End Role="TableApplication" EntitySet="TableApplication" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TableApplication_TableMaster" Association="MalevModel.FK_TableApplication_TableMaster">
+            <End Role="TableMaster" EntitySet="TableMaster" />
+            <End Role="TableApplication" EntitySet="TableApplication" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TableRepairApp_TableApplication" Association="MalevModel.FK_TableRepairApp_TableApplication">
+            <End Role="TableApplication" EntitySet="TableApplication" />
+            <End Role="TableRepairApp" EntitySet="TableRepairApp" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TableMaster_TableGender" Association="MalevModel.FK_TableMaster_TableGender">
+            <End Role="TableGender" EntitySet="TableGender" />
+            <End Role="TableMaster" EntitySet="TableMaster" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TableMaster_TableRole" Association="MalevModel.FK_TableMaster_TableRole">
+            <End Role="TableRole" EntitySet="TableRole" />
+            <End Role="TableMaster" EntitySet="TableMaster" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TableRepairApp_TableRepair" Association="MalevModel.FK_TableRepairApp_TableRepair">
+            <End Role="TableRepair" EntitySet="TableRepair" />
+            <End Role="TableRepairApp" EntitySet="TableRepairApp" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="MasterPhoto">
+          <Key>
+            <PropertyRef Name="idPhoto" />
+          </Key>
+          <Property Name="idPhoto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idMaster" Type="Int32" Nullable="false" />
+          <Property Name="PhotoBinary" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="PhotoPath" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="TableMaster" Relationship="MalevModel.FK_MasterPhoto_TableMaster" FromRole="MasterPhoto" ToRole="TableMaster" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="TableApplication">
+          <Key>
+            <PropertyRef Name="idApplication" />
+          </Key>
+          <Property Name="idApplication" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Surname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Fatherland" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="idBrand" Type="Int32" Nullable="false" />
+          <Property Name="idMaster" Type="Int32" Nullable="false" />
+          <Property Name="idRepair" Type="Int32" Nullable="false" />
+          <Property Name="Photo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TableBrand" Relationship="MalevModel.FK_TableApplication_TableBrand" FromRole="TableApplication" ToRole="TableBrand" />
+          <NavigationProperty Name="TableMaster" Relationship="MalevModel.FK_TableApplication_TableMaster" FromRole="TableApplication" ToRole="TableMaster" />
+          <NavigationProperty Name="TableRepairApp" Relationship="MalevModel.FK_TableRepairApp_TableApplication" FromRole="TableApplication" ToRole="TableRepairApp" />
+        </EntityType>
+        <EntityType Name="TableBrand">
+          <Key>
+            <PropertyRef Name="idBrand" />
+          </Key>
+          <Property Name="idBrand" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Brand" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TableApplication" Relationship="MalevModel.FK_TableApplication_TableBrand" FromRole="TableBrand" ToRole="TableApplication" />
+        </EntityType>
+        <EntityType Name="TableGender">
+          <Key>
+            <PropertyRef Name="idGender" />
+          </Key>
+          <Property Name="idGender" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Gender" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="TableMaster" Relationship="MalevModel.FK_TableMaster_TableGender" FromRole="TableGender" ToRole="TableMaster" />
+        </EntityType>
+        <EntityType Name="TableMaster">
+          <Key>
+            <PropertyRef Name="idMaster" />
+          </Key>
+          <Property Name="idMaster" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Surname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Fatherland" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Birthday" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Login" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="Int32" Nullable="false" />
+          <Property Name="idGender" Type="Int32" Nullable="false" />
+          <Property Name="idRole" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="MasterPhoto" Relationship="MalevModel.FK_MasterPhoto_TableMaster" FromRole="TableMaster" ToRole="MasterPhoto" />
+          <NavigationProperty Name="TableApplication" Relationship="MalevModel.FK_TableApplication_TableMaster" FromRole="TableMaster" ToRole="TableApplication" />
+          <NavigationProperty Name="TableGender" Relationship="MalevModel.FK_TableMaster_TableGender" FromRole="TableMaster" ToRole="TableGender" />
+          <NavigationProperty Name="TableRole" Relationship="MalevModel.FK_TableMaster_TableRole" FromRole="TableMaster" ToRole="TableRole" />
+        </EntityType>
+        <EntityType Name="TableRepair">
+          <Key>
+            <PropertyRef Name="idRepair" />
+          </Key>
+          <Property Name="idRepair" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Repair" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Price" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <NavigationProperty Name="TableRepairApp" Relationship="MalevModel.FK_TableRepairApp_TableRepair" FromRole="TableRepair" ToRole="TableRepairApp" />
+        </EntityType>
+        <EntityType Name="TableRepairApp">
+          <Key>
+            <PropertyRef Name="idRepairApp" />
+          </Key>
+          <Property Name="idRepairApp" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idRepair" Type="Int32" Nullable="false" />
+          <Property Name="idApplication" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="TableApplication" Relationship="MalevModel.FK_TableRepairApp_TableApplication" FromRole="TableRepairApp" ToRole="TableApplication" />
+          <NavigationProperty Name="TableRepair" Relationship="MalevModel.FK_TableRepairApp_TableRepair" FromRole="TableRepairApp" ToRole="TableRepair" />
+        </EntityType>
+        <EntityType Name="TableRole">
+          <Key>
+            <PropertyRef Name="idRole" />
+          </Key>
+          <Property Name="idRole" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Role" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TableMaster" Relationship="MalevModel.FK_TableMaster_TableRole" FromRole="TableRole" ToRole="TableMaster" />
+        </EntityType>
+        <Association Name="FK_MasterPhoto_TableMaster">
+          <End Type="MalevModel.TableMaster" Role="TableMaster" Multiplicity="1" />
+          <End Type="MalevModel.MasterPhoto" Role="MasterPhoto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TableMaster">
+              <PropertyRef Name="idMaster" />
+            </Principal>
+            <Dependent Role="MasterPhoto">
+              <PropertyRef Name="idMaster" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TableApplication_TableBrand">
+          <End Type="MalevModel.TableBrand" Role="TableBrand" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="MalevModel.TableApplication" Role="TableApplication" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TableBrand">
+              <PropertyRef Name="idBrand" />
+            </Principal>
+            <Dependent Role="TableApplication">
+              <PropertyRef Name="idBrand" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TableApplication_TableMaster">
+          <End Type="MalevModel.TableMaster" Role="TableMaster" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="MalevModel.TableApplication" Role="TableApplication" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TableMaster">
+              <PropertyRef Name="idMaster" />
+            </Principal>
+            <Dependent Role="TableApplication">
+              <PropertyRef Name="idMaster" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TableRepairApp_TableApplication">
+          <End Type="MalevModel.TableApplication" Role="TableApplication" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="MalevModel.TableRepairApp" Role="TableRepairApp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TableApplication">
+              <PropertyRef Name="idApplication" />
+            </Principal>
+            <Dependent Role="TableRepairApp">
+              <PropertyRef Name="idApplication" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TableMaster_TableGender">
+          <End Type="MalevModel.TableGender" Role="TableGender" Multiplicity="1" />
+          <End Type="MalevModel.TableMaster" Role="TableMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TableGender">
+              <PropertyRef Name="idGender" />
+            </Principal>
+            <Dependent Role="TableMaster">
+              <PropertyRef Name="idGender" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TableMaster_TableRole">
+          <End Type="MalevModel.TableRole" Role="TableRole" Multiplicity="1" />
+          <End Type="MalevModel.TableMaster" Role="TableMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TableRole">
+              <PropertyRef Name="idRole" />
+            </Principal>
+            <Dependent Role="TableMaster">
+              <PropertyRef Name="idRole" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TableRepairApp_TableRepair">
+          <End Type="MalevModel.TableRepair" Role="TableRepair" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="MalevModel.TableRepairApp" Role="TableRepairApp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TableRepair">
+              <PropertyRef Name="idRepair" />
+            </Principal>
+            <Dependent Role="TableRepairApp">
+              <PropertyRef Name="idRepair" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище MalevModelContainer" CdmEntityContainer="AntonEntities">
+          <EntitySetMapping Name="MasterPhoto">
+            <EntityTypeMapping TypeName="MalevModel.MasterPhoto">
+              <MappingFragment StoreEntitySet="MasterPhoto">
+                <ScalarProperty Name="PhotoPath" ColumnName="PhotoPath" />
+                <ScalarProperty Name="PhotoBinary" ColumnName="PhotoBinary" />
+                <ScalarProperty Name="idMaster" ColumnName="idMaster" />
+                <ScalarProperty Name="idPhoto" ColumnName="idPhoto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="MalevModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TableApplication">
+            <EntityTypeMapping TypeName="MalevModel.TableApplication">
+              <MappingFragment StoreEntitySet="TableApplication">
+                <ScalarProperty Name="Photo" ColumnName="Photo" />
+                <ScalarProperty Name="idRepair" ColumnName="idRepair" />
+                <ScalarProperty Name="idMaster" ColumnName="idMaster" />
+                <ScalarProperty Name="idBrand" ColumnName="idBrand" />
+                <ScalarProperty Name="Fatherland" ColumnName="Fatherland" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="idApplication" ColumnName="idApplication" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TableBrand">
+            <EntityTypeMapping TypeName="MalevModel.TableBrand">
+              <MappingFragment StoreEntitySet="TableBrand">
+                <ScalarProperty Name="Brand" ColumnName="Brand" />
+                <ScalarProperty Name="idBrand" ColumnName="idBrand" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TableGender">
+            <EntityTypeMapping TypeName="MalevModel.TableGender">
+              <MappingFragment StoreEntitySet="TableGender">
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="idGender" ColumnName="idGender" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TableMaster">
+            <EntityTypeMapping TypeName="MalevModel.TableMaster">
+              <MappingFragment StoreEntitySet="TableMaster">
+                <ScalarProperty Name="idRole" ColumnName="idRole" />
+                <ScalarProperty Name="idGender" ColumnName="idGender" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
+                <ScalarProperty Name="Fatherland" ColumnName="Fatherland" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="idMaster" ColumnName="idMaster" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TableRepair">
+            <EntityTypeMapping TypeName="MalevModel.TableRepair">
+              <MappingFragment StoreEntitySet="TableRepair">
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Repair" ColumnName="Repair" />
+                <ScalarProperty Name="idRepair" ColumnName="idRepair" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TableRepairApp">
+            <EntityTypeMapping TypeName="MalevModel.TableRepairApp">
+              <MappingFragment StoreEntitySet="TableRepairApp">
+                <ScalarProperty Name="idApplication" ColumnName="idApplication" />
+                <ScalarProperty Name="idRepair" ColumnName="idRepair" />
+                <ScalarProperty Name="idRepairApp" ColumnName="idRepairApp" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TableRole">
+            <EntityTypeMapping TypeName="MalevModel.TableRole">
+              <MappingFragment StoreEntitySet="TableRole">
+                <ScalarProperty Name="Role" ColumnName="Role" />
+                <ScalarProperty Name="idRole" ColumnName="idRole" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

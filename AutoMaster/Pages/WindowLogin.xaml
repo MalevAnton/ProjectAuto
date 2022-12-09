@@ -1,0 +1,20 @@
+﻿<Window x:Class="AutoMaster.Pages.WindowLogin"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AutoMaster.Pages"
+        mc:Ignorable="d"
+        Title="WindowLogin" Height="500" Width="350" FontSize="24">
+    <Grid>
+        <StackPanel>
+            <GroupBox Header="Введите новый логин">
+                <TextBox Name="tbLogin"></TextBox>
+            </GroupBox>
+            <GroupBox Header="Введите новый пароль">
+                <PasswordBox Name="pbPassword"></PasswordBox>
+            </GroupBox>
+            <Button Click="Button_Click">Изменить данные</Button>
+        </StackPanel>
+    </Grid>
+</Window>

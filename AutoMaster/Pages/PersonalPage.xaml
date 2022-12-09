@@ -1,0 +1,55 @@
+﻿<Page x:Class="AutoMaster.Pages.PersonalPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:AutoMaster.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="PersonalPage">
+
+    <Grid>
+        <StackPanel Orientation="Horizontal">
+
+            <StackPanel Orientation="Horizontal">
+                <StackPanel>
+                    <Image Height="271" Width="272" Name="imMaster" Source="\Resources\picture.jpg"/>
+                    <Button Click="Button_Click_1">Изменить фото на новое</Button>
+                    <Button Click="Button_Click_2">Добавить несколько фото</Button>
+                    <Button Click="Button_Click_3">Изменить фото на старое</Button>
+                </StackPanel>
+
+                <StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,15">
+                        <TextBlock Margin="0,0,15,0">Фамилия:</TextBlock>
+                        <TextBlock Name="tbSurname"></TextBlock>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,15">
+                        <TextBlock Margin="0,0,15,0">Имя:</TextBlock>
+                        <TextBlock Name="tbName"></TextBlock>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,15">
+                        <TextBlock Margin="0,0,15,0">Отечество:</TextBlock>
+                        <TextBlock Name="tbFatherland"></TextBlock>
+                    </StackPanel>
+
+                    <Button Click="Button_Click">Изменить личные данные</Button>
+                    <Button Click="ButtonLog_Click">Изменить логин и пароль</Button>
+
+                    <StackPanel Name="spGallery" Visibility="Collapsed">
+
+                        <StackPanel Orientation="Horizontal">
+                            <Button Name="Back" Click="Back_Click" IsEnabled="False">Назад</Button>
+                            <Image Width="200" Height="200" Name="imgGallery"></Image>
+                            <Button Name="Next" Click="Next_Click">Вперед</Button>
+                        </StackPanel>
+                        <Button Name="btnOld" Click="btnOld_Click">Изменить фото на выбранное</Button>
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Page>
